@@ -13,6 +13,10 @@ $(call inherit-product, device/nubia/caza/device.mk)
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
+# Boot animation
+TARGET_SCREEN_HEIGHT := 2480
+TARGET_SCREEN_WIDTH := 1116
+
 PRODUCT_BRAND := nubia
 PRODUCT_DEVICE := caza
 PRODUCT_MANUFACTURER := nubia
