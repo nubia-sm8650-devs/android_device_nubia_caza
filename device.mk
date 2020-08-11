@@ -219,6 +219,10 @@ PRODUCT_COPY_FILES += \
 # Product characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
 
+# QMI
+PRODUCT_PACKAGES += \
+    libvndfwk_detect_jni.qti.vendor
+
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH) \
