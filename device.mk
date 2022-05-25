@@ -120,6 +120,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
 
+# NFC
+PRODUCT_PACKAGES += \
+    android.hardware.nfc-service.st
+
 # Partitions
 PRODUCT_BUILD_PVMFW_IMAGE := true
 
