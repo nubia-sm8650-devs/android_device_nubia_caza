@@ -232,6 +232,10 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     fstab.qcom.vendor_ramdisk
 
+# Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors-service.multihal
+
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH) \
