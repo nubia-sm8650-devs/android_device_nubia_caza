@@ -36,6 +36,9 @@ PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script
 
+# Partitions
+PRODUCT_BUILD_PVMFW_IMAGE := true
+
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH)
