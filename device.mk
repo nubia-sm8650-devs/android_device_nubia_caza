@@ -124,6 +124,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.nfc-service.st
 
+PRODUCT_PACKAGES += \
+    com.android.nfc_extras \
+    Tag
+
 # Partitions
 PRODUCT_BUILD_PVMFW_IMAGE := true
 
