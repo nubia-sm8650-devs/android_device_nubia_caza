@@ -72,6 +72,9 @@ PRODUCT_PACKAGES += \
     android.hardware.boot-service.qti \
     android.hardware.boot-service.qti.recovery
 
+# Camera
+$(call soong_config_set,camera,override_format_from_reserved,true)
+
 # Partitions
 PRODUCT_BUILD_PVMFW_IMAGE := true
 
