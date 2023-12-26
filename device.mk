@@ -116,6 +116,10 @@ PRODUCT_PACKAGES += \
     IPACM_cfg.xml \
     IPACM_Filter_cfg.xml
 
+# Memtrack
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.memtrack-service
+
 # Partitions
 PRODUCT_BUILD_PVMFW_IMAGE := true
 
