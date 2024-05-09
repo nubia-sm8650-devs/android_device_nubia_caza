@@ -36,6 +36,10 @@ PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script
 
+# API level
+BOARD_SHIPPING_API_LEVEL := 34
+PRODUCT_SHIPPING_API_LEVEL := 34
+
 # Partitions
 PRODUCT_BUILD_PVMFW_IMAGE := true
 
