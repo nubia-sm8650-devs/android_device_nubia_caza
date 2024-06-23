@@ -306,5 +306,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(DEVICE_PATH)/wifi,$(TARGET_COPY_OUT_VENDOR)/etc/wifi)
 
+# WiFi firmware symlinks
+PRODUCT_PACKAGES += \
+    firmware_wifimac.dat_symlink \
+    firmware_wlan_mac.bin_symlink \
+    firmware_WCNSS_qcom_cfg.ini_symlink
+
 # Inherit from proprietary targets
 $(call inherit-product, vendor/nubia/caza/caza-vendor.mk)
