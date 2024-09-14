@@ -75,6 +75,20 @@ PRODUCT_PACKAGES += \
 # Camera
 $(call soong_config_set,camera,override_format_from_reserved,true)
 
+# Display
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.display.allocator-service \
+    vendor.qti.hardware.display.composer-service \
+    vendor.qti.hardware.display.demura-service
+
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.mapper@4.0-impl-qti-display
+
+PRODUCT_PACKAGES += \
+    init.qti.display_boot.rc \
+    init.qti.display_boot.sh \
+    libgpu_tonemapper
+
 # Partitions
 PRODUCT_BUILD_PVMFW_IMAGE := true
 
