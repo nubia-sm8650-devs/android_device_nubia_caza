@@ -3,6 +3,24 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+# A/B
+AB_OTA_PARTITIONS := \
+    boot \
+    dtbo \
+    init_boot \
+    odm \
+    product \
+    pvmfw \
+    recovery \
+    system \
+    system_dlkm \
+    system_ext \
+    vbmeta \
+    vbmeta_system \
+    vendor \
+    vendor_dlkm \
+    vendor_boot
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv9-a
