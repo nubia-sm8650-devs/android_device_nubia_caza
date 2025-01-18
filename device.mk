@@ -89,6 +89,9 @@ PRODUCT_PACKAGES += \
     init.qti.display_boot.sh \
     libgpu_tonemapper
 
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(DEVICE_PATH)/configs/display,$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig)
+
 # Partitions
 PRODUCT_BUILD_PVMFW_IMAGE := true
 
