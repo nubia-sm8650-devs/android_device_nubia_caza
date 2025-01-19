@@ -223,6 +223,10 @@ PRODUCT_CHARACTERISTICS := nosdcard
 PRODUCT_PACKAGES += \
     libvndfwk_detect_jni.qti.vendor
 
+# QSPA
+PRODUCT_PACKAGES += \
+    vendor.qti.qspa-service
+
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH) \
