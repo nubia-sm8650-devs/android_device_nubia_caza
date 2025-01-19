@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- boolean indicating whether or not to reset auto shotdown configuration during cloud configuration restore -->
+    <bool name="config_wifiSoftapResetAutoShutdownTimerConfig" translatable="false">false</bool>
+
+    <!-- boolean indicating whether or not to reset channel configuration during cloud configuration restore -->
+    <bool name="config_wifiSoftapResetChannelConfig" translatable="false">false</bool>
+
+    <!-- boolean indicating whether or not to reset hiddenSsid configuration during cloud configuration restore -->
+    <bool name="config_wifiSoftapResetHiddenConfig" translatable="false">false</bool>
+
+    <!-- boolean indicating whether or not to reset max client setting configuration during cloud configuration restore -->
+    <bool name="config_wifiSoftapResetMaxClientSettingConfig" translatable="false">false</bool>
+
+    <!-- boolean indicating whether or not to reset user control configuration during cloud configuration restore -->
+    <bool name="config_wifiSoftapResetUserControlConfig" translatable="false">false</bool>
+
+    <!-- Integer indicating maximum hardware supported client number of soft ap -->
+    <integer name="config_wifiHardwareSoftapMaxClientCount" translatable="false">10</integer>
+
+    <!-- List of allowed channels in 2GHz band for softap. If the device doesn't want to restrict
+         channels this should be empty. Values is a comma separated channel string and/or channel
+         range string like '1-6,11'. -->
+    <string name="config_wifiSoftap2gChannelList" translatable="false">1-11</string>
+
+    <!-- Defines the minimum period between scans triggered due to low score.
+    This is used together with config_wifiConnectedScoreThresholdToTriggerScanForMbb.-->
+    <integer name="config_wifiLowConnectedScoreScanPeriodSeconds" translatable="false">20</integer>
+
+    <!-- Boolean indicating that enable roaming between linked networks -->
+    <bool name="config_wifiEnableLinkedNetworkRoaming" translatable="false">true</bool>
+
+    <!-- Wifi driver supports Automatic channel selection (ACS) for softap -->
+    <bool name="config_wifi_softap_acs_supported" translatable="false">true</bool>
+
+    <!-- Wifi driver supports IEEE80211BE for softap -->
+    <bool name="config_wifiSoftapIeee80211beSupported" translatable="false">false</bool>
+
+    <!-- Indicates that bridged AP mode is supported on this device provided that
+     the device interface combination allows for it -->
+    <bool name="config_wifiBridgedSoftApSupported" translatable="false">false</bool>
+
+    <!-- Indicates that STA + bridged AP concurrency mode is supported on this device provided
+     that the device interface combination allows for it-->
+    <bool name="config_wifiStaWithBridgedSoftApConcurrencySupported" translatable="false">true</bool>
+
+    <!--
+    Controls the mapping between RSSI and RSSI levels.
+
+    RSSI                                    RSSI Level
+    (-infinity, thresholds[0])                       0
+    [threshold[0], threshold[1])                     1
+    [threshold[1], threshold[2])                     2
+    ...                                            ...
+    [threshold[len-2], threshold[len-1])         len-1
+    [threshold[len-1], +infinity)                  len
+
+    where:
+        [a, b) is the range of integers `n` such that a <= n < b
+        `threshold[i]` represents the i'th element of the config_wifiRssiLevelThresholds array
+        and `len` is the length of the config_wifiRssiLevelThresholds array.
+    -->
+    <integer-array name="config_wifiRssiLevelThresholds" translatable="false">
+        <item>-90</item>
+        <item>-85</item>
+        <item>-75</item>
+        <item>-65</item>
+    </integer-array>
+
+    <!-- Array describing scanning schedule in seconds when device is disconnected and screen is on -->
+    <integer-array name="config_wifiDisconnectedScanIntervalScheduleSec" translatable="false">
+        <item>20</item>
+        <item>20</item>
+        <item>20</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>60</item>
+        <item>100</item>
+        <item>160</item>
+    </integer-array>
+
+    <!-- Array describing scanning schedule in seconds when device is connected and screen is on -->
+    <integer-array name="config_wifiConnectedScanIntervalScheduleSec" translatable="false">
+        <item>20</item>
+        <item>20</item>
+        <item>20</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>60</item>
+        <item>100</item>
+        <item>160</item>
+    </integer-array>
+    <integer name="config_wifiDisableReasonNoInternetTemporaryThreshold" translatable="false">2</integer>
+    <integer name="config_wifiDisableReasonNoInternetPermanentThreshold" translatable="false">2</integer>
+    <integer name="config_wifiDisableReasonByWrongPasswordThreshold" translatable="false">2</integer>
+    <integer name="config_wifiDisableReasonAuthenticationNoSubscriptionThreshold" translatable="false">2</integer>
+    <integer name="config_wifiDisableReasonConsecutiveFailuresThreshold" translatable="false">2</integer>
+    <integer name="config_wifiBssidBlocklistMonitorNetworkValidationFailureThreshold" translatable="false">3</integer>
+    <integer name="config_wifiBssidBlocklistMonitorWrongPasswordThreshold" translatable="false">6</integer>
+    <integer name="config_wifiBssidBlocklistMonitorEapFailureThreshold" translatable="false">6</integer>
+    <integer name="config_wifiBssidBlocklistMonitorAssociationRejectionThreshold" translatable="false">6</integer>
+    <integer name="config_wifiBssidBlocklistMonitorAssociationTimeoutThreshold" translatable="false">6</integer>
+    <integer name="config_wifiBssidBlocklistMonitorAuthenticationFailureThreshold" translatable="false">6</integer>
+    <integer name="config_wifiBssidBlocklistMonitorDhcpFailureThreshold" translatable="false">6</integer>
+    <integer name="config_wifiBssidBlocklistMonitorAbnormalDisconnectThreshold" translatable="false">6</integer>
+
+    <!-- Do a single scan when cell data loss is detected. -->
+    <bool name="config_wifiScanOnCellularDataLossEnabled" translatable="false">true</bool>
+
+    <!-- Initial PNO scan interval, in milliseconds, when the device is moving (i.e.
+         WifiManager.DEVICE_MOBILITY_STATE_UNKNOWN, WifiManager.DEVICE_MOBILITY_STATE_HIGH_MVMT, or
+         WifiManager.DEVICE_MOBILITY_STATE_LOW_MVMT).
+         The scan interval backs off from this initial interval on subsequent scans.
+         This scan is performed when screen is off and disconnected. -->
+    <integer name="config_wifiMovingPnoScanIntervalMillis" translatable="false">30000</integer>
+
+    <!-- Enable Make-Before-Break Wifi network switching.
+         Note: this is conditional on the device supporting dual concurrent STAs. -->
+    <bool name="config_wifiMultiStaNetworkSwitchingMakeBeforeBreakEnabled" translatable="false">true</bool>
+
+    <!-- Enable concurrent peer to peer + internet connectivity
+         Note: this is conditional on the device supporting dual concurrent STAs. -->
+    <bool name="config_wifiMultiStaLocalOnlyConcurrencyEnabled" translatable="false">false</bool>
+
+    <!-- Enable concurrent restricted connectivity + internet connectivity
+         Note: this is conditional on the device supporting dual concurrent STAs. -->
+    <bool name="config_wifiMultiStaRestrictedConcurrencyEnabled" translatable="false">false</bool>
+
+    <!-- Enable concurrent internet connectivity + internet connectivity
+         Note: this is conditional on the device supporting dual concurrent STAs. -->
+    <bool name="config_wifiMultiStaMultiInternetConcurrencyEnabled" translatable="false">false</bool>
+
+    <!-- Indicates whether or not the WLAN driver supports the NL80211_CMD_REG_CHANGE or
+         NL80211_CMD_WIPHY_REG_CHANGE events which indicate the current country code which is
+         being used by the WLAN driver. If the driver doesn't support these events
+         (configuration is `false`) then the driver must handle the setCountryCode request from
+         HAL as a blocking call. In such a case the country code will be applied
+         immediately after the country code is sent to the driver (if the method returns a
+         success). -->
+    <bool name="config_wifiDriverSupportedNl80211RegChangedEvent" translatable="false">false</bool>
+
+    <!-- Wifi driver supports Opportunistic Wireless Encryption (OWE)
+         aka Enhanced Open for Soft-AP -->
+    <bool name="config_wifiSoftapOweSupported" translatable="false">false</bool>
+
+    <!-- Lists each alternate character set per locale language for SSID translation to UTF-8. This
+         will translate all SSIDs encoded with the specified character set from the native layer
+         into UTF-8 SSIDs. The translated SSIDs are then converted back to the original character
+         set when passed back to the native layer. This effectively switches all non-UTF-8 APs into
+         UTF-8 APs from the perspective of the framework and apps, and is intended to provide
+         backwards compatibility with apps that only work with UTF-8 SSIDs. Values must be in the
+         form of the locale language and canonical java.nio Charset name, separated by a comma. If
+         the locale language is "all", then the character set will apply to all locale languages
+         that do not specify their own character set. -->
+    <string-array name="config_wifiCharsetsForSsidTranslation" translatable="false">
+        <item>zh,GBK</item>
+    </string-array>
+</resources>
