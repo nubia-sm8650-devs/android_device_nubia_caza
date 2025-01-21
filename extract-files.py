@@ -60,6 +60,8 @@ blob_fixups: blob_fixups_user_type = {
         .remove_needed('android.hidl.base@1.0.so'),
     'system_ext/lib64/libwfdservice.so': blob_fixup()
         .replace_needed('android.media.audio.common.types-V2-cpp.so', 'android.media.audio.common.types-V4-cpp.so'),
+    'vendor/lib64/libcamximageformatutils.so': blob_fixup()
+        .remove_needed('android.hardware.graphics.allocator-V1-ndk.so'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
