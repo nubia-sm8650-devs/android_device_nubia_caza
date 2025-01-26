@@ -3,6 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
 # A/B
 AB_OTA_PARTITIONS := \
     boot \
@@ -93,10 +95,33 @@ BOARD_BOOTCONFIG := \
     androidboot.hypervisor.protected_vm.supported=false \
     androidboot.console=0
 
-TARGET_KERNEL_CONFIG := caza_defconfig
 TARGET_KERNEL_SOURCE := kernel/nubia/sm8650
 
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)
+
+PREBUILT_PATH := device/nubia/caza-kernel
+TARGET_NO_KERNEL_OVERRIDE := true
+PRODUCT_COPY_FILES += \
+	$(PREBUILT_PATH)/images/kernel:kernel
+
+BOARD_PREBUILT_DTBOIMAGE := $(PREBUILT_PATH)/images/dtbo.img
+
+# Kernel modules
+DLKM_MODULES_PATH := $(PREBUILT_PATH)/modules/vendor_dlkm
+RAMDISK_MODULES_PATH := $(PREBUILT_PATH)/modules/vendor_boot
+SYSTEM_DLKM_MODULES_PATH := $(PREBUILT_PATH)/modules/system_dlkm/6.1.68-android14-11-g716498f88d0f-ab11695701
+
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(SYSTEM_DLKM_MODULES_PATH)/,$(TARGET_COPY_OUT_SYSTEM_DLKM)/lib/modules/6.1.68-android14-11-g716498f88d0f-ab11695701/)
+
+BOARD_VENDOR_KERNEL_MODULES := $(wildcard $(DLKM_MODULES_PATH)/*.ko)
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(patsubst %,$(DLKM_MODULES_PATH)/%,$(shell cat $(DLKM_MODULES_PATH)/modules.load))
+BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := $(DLKM_MODULES_PATH)/modules.blocklist
+
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard $(RAMDISK_MODULES_PATH)/*.ko)
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(patsubst %,$(RAMDISK_MODULES_PATH)/%,$(shell cat $(RAMDISK_MODULES_PATH)/modules.load))
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD  := $(patsubst %,$(RAMDISK_MODULES_PATH)/%,$(shell cat $(RAMDISK_MODULES_PATH)/modules.load.recovery))
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(RAMDISK_MODULES_PATH)/modules.blocklist
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
