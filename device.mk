@@ -116,6 +116,10 @@ PRODUCT_PACKAGES += \
     IPACM_cfg.xml \
     IPACM_Filter_cfg.xml
 
+# IR
+PRODUCT_PACKAGES += \
+    android.hardware.ir-service.example
+
 # Memtrack
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
