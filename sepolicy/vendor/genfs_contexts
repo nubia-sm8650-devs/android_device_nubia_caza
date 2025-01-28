@@ -1,0 +1,16 @@
+# BMS
+genfscon sysfs /class/qcom-battery                                                                       u:object_r:vendor_sysfs_battery_supply:s0
+
+# USB
+genfscon sysfs /devices/platform/soc/soc:charger_policy_service                                          u:object_r:vendor_sysfs_usb_supply:s0
+
+# Vibrator
+genfscon sysfs /devices/platform/soc/9c0000.qcom,qupv3_i2c_geni_se/990000.i2c/i2c-1/1-005a/leds/vibrator u:object_r:sysfs_leds:s0
+
+# Wakeup nodes
+genfscon sysfs /devices/platform/soc/ac0000.qcom,qupv3_1_geni_se/a8c000.i2c/i2c-4/4-000e/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc/soc:charger_policy_service/power_supply/policy/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc/soc:charger_policy_service/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc/soc:gpio_keys_nubia/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,pmic_glink/soc:qcom,pmic_glink:qcom,battery_charger/zte_power_supply/zte_battery/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,pmic_glink/soc:qcom,pmic_glink:qcom,battery_charger/zte_power_supply/zte_usb/wakeup u:object_r:sysfs_wakeup:s0

@@ -1,0 +1,11 @@
+# Audio
+/mnt/vendor/persist/smartpa_cali_data(/.*)?                       u:object_r:vendor_persist_audio_file:s0
+
+# NFC
+/vendor/bin/hw/android\.hardware\.nfc-service\.st                 u:object_r:hal_nfc_default_exec:s0
+
+# Power
+/vendor/bin/hw/android\.hardware\.power-service\.pixel-libperfmgr u:object_r:hal_power_default_exec:s0
+
+# Secure Element
+/vendor/bin/hw/android\.hardware\.secure_element-service-aidl     u:object_r:hal_secure_element_default_exec:s0
