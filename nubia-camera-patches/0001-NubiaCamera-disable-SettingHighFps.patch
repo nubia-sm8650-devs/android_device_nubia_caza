@@ -1,7 +1,7 @@
 From 00ccd2a0038a4e15a09096d0536a810179832466 Mon Sep 17 00:00:00 2001
 From: Cosmin Tanislav <demonsingur@gmail.com>
 Date: Sun, 22 Jun 2025 01:54:08 +0300
-Subject: [PATCH] NubiaCamera: disable SettingHighFps
+Subject: [PATCH 1/2] NubiaCamera: disable SettingHighFps
 
 E AndroidRuntime: FATAL EXCEPTION: main
 E AndroidRuntime: Process: com.android.camera, PID: 12240

@@ -1,0 +1,500 @@
+From bc4fffec99affa3727e1176c9dcf55df7af9c01d Mon Sep 17 00:00:00 2001
+From: Cosmin Tanislav <demonsingur@gmail.com>
+Date: Mon, 23 Jun 2025 20:49:47 +0300
+Subject: [PATCH 2/2] NubiaCamera: implement opening generic gallery app
+
+https://gist.github.com/Demon000/d1a194ba9f07190908b1591e8c91b69f
+---
+ .../ThumbnailOnClickListener.smali            |   4 +-
+ .../cn/nubia/camera/utils/CameraUtil.smali    | 456 ++++++++++++++++++
+ 2 files changed, 459 insertions(+), 1 deletion(-)
+
+diff --git a/smali/cn/nubia/camera/commonlisteners/ThumbnailOnClickListener.smali b/smali/cn/nubia/camera/commonlisteners/ThumbnailOnClickListener.smali
+index 5c05e944..f2bb3d6b 100644
+--- a/smali/cn/nubia/camera/commonlisteners/ThumbnailOnClickListener.smali
++++ b/smali/cn/nubia/camera/commonlisteners/ThumbnailOnClickListener.smali
+@@ -51,6 +51,8 @@
+ 
+     move-result v2
+ 
++    const/4 v2, 0x1
++
+     if-eqz v2, :cond_0
+ 
+     .line 87
+@@ -79,7 +81,7 @@
+     move-object/from16 v4, p1
+ 
+     .line 87
+-    invoke-static/range {v3 .. v9}, Lcn/nubia/camera/utils/CameraUtil;->viewUriInPhotos(Landroid/net/Uri;Landroid/content/Context;ZJJ)V
++    invoke-static/range {v3 .. v9}, Lcn/nubia/camera/utils/CameraUtil;->viewUriInGallery(Landroid/net/Uri;Landroid/content/Context;ZJJ)V
+ 
+     goto :goto_0
+ 
+diff --git a/smali_classes2/cn/nubia/camera/utils/CameraUtil.smali b/smali_classes2/cn/nubia/camera/utils/CameraUtil.smali
+index b012326d..e17bb716 100644
+--- a/smali_classes2/cn/nubia/camera/utils/CameraUtil.smali
++++ b/smali_classes2/cn/nubia/camera/utils/CameraUtil.smali
+@@ -11586,3 +11586,459 @@
+     :goto_2
+     return-void
+ .end method
++
++.method public static addClipData(Landroid/content/Intent;Landroid/content/Context;JJ)V
++    .registers 14
++    .param p0, "intent"    # Landroid/content/Intent;
++    .param p1, "context"    # Landroid/content/Context;
++    .param p2, "firstCreateTime"    # J
++    .param p4, "currentTime"    # J
++
++    .line 65
++    new-instance v0, Ljava/util/ArrayList;
++
++    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
++
++    .line 67
++    .local v0, "uris":Ljava/util/List;, "Ljava/util/List<Landroid/net/Uri;>;"
++    const/4 v6, 0x1
++
++    move-object v1, p1
++
++    move-wide v2, p2
++
++    move-wide v4, p4
++
++    .end local p1    # "context":Landroid/content/Context;
++    .end local p2    # "firstCreateTime":J
++    .end local p4    # "currentTime":J
++    .local v1, "context":Landroid/content/Context;
++    .local v2, "firstCreateTime":J
++    .local v4, "currentTime":J
++    invoke-static/range {v1 .. v6}, Lcn/nubia/camera/utils/CameraUtil;->getMediaIdsInSecureModeWithType(Landroid/content/Context;JJI)[J
++
++    move-result-object p1
++
++    .line 68
++    .local p1, "imageIds":[J
++    array-length p2, p1
++
++    const/4 p3, 0x0
++
++    move p4, p3
++
++    :goto_10
++    if-ge p4, p2, :cond_20
++
++    aget-wide v6, p1, p4
++
++    .line 69
++    .local v6, "imageId":J
++    sget-object p5, Landroid/provider/MediaStore$Images$Media;->EXTERNAL_CONTENT_URI:Landroid/net/Uri;
++
++    invoke-static {p5, v6, v7}, Landroid/content/ContentUris;->withAppendedId(Landroid/net/Uri;J)Landroid/net/Uri;
++
++    move-result-object p5
++
++    .line 70
++    .local p5, "uri":Landroid/net/Uri;
++    invoke-interface {v0, p5}, Ljava/util/List;->add(Ljava/lang/Object;)Z
++
++    .line 68
++    .end local v6    # "imageId":J
++    .end local p5    # "uri":Landroid/net/Uri;
++    add-int/lit8 p4, p4, 0x1
++
++    goto :goto_10
++
++    .line 73
++    :cond_20
++    const/4 v6, 0x3
++
++    invoke-static/range {v1 .. v6}, Lcn/nubia/camera/utils/CameraUtil;->getMediaIdsInSecureModeWithType(Landroid/content/Context;JJI)[J
++
++    move-result-object p2
++
++    .line 74
++    .local p2, "videoIds":[J
++    array-length p4, p2
++
++    :goto_26
++    if-ge p3, p4, :cond_36
++
++    aget-wide v6, p2, p3
++
++    .line 75
++    .local v6, "videoId":J
++    sget-object p5, Landroid/provider/MediaStore$Video$Media;->EXTERNAL_CONTENT_URI:Landroid/net/Uri;
++
++    invoke-static {p5, v6, v7}, Landroid/content/ContentUris;->withAppendedId(Landroid/net/Uri;J)Landroid/net/Uri;
++
++    move-result-object p5
++
++    .line 76
++    .restart local p5    # "uri":Landroid/net/Uri;
++    invoke-interface {v0, p5}, Ljava/util/List;->add(Ljava/lang/Object;)Z
++
++    .line 74
++    .end local v6    # "videoId":J
++    .end local p5    # "uri":Landroid/net/Uri;
++    add-int/lit8 p3, p3, 0x1
++
++    goto :goto_26
++
++    .line 79
++    :cond_36
++    invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
++
++    move-result-object p3
++
++    .line 80
++    .local p3, "contentResolver":Landroid/content/ContentResolver;
++    const/4 p4, 0x0
++
++    .line 82
++    .local p4, "clipData":Landroid/content/ClipData;
++    const/4 p5, 0x0
++
++    .local p5, "i":I
++    :goto_3c
++    invoke-interface {v0}, Ljava/util/List;->size()I
++
++    move-result v6
++
++    if-ge p5, v6, :cond_5b
++
++    .line 83
++    invoke-interface {v0, p5}, Ljava/util/List;->get(I)Ljava/lang/Object;
++
++    move-result-object v6
++
++    check-cast v6, Landroid/net/Uri;
++
++    .line 85
++    .local v6, "uri":Landroid/net/Uri;
++    if-nez p5, :cond_50
++
++    .line 86
++    const/4 v7, 0x0
++
++    invoke-static {p3, v7, v6}, Landroid/content/ClipData;->newUri(Landroid/content/ContentResolver;Ljava/lang/CharSequence;Landroid/net/Uri;)Landroid/content/ClipData;
++
++    move-result-object p4
++
++    goto :goto_58
++
++    .line 88
++    :cond_50
++    new-instance v7, Landroid/content/ClipData$Item;
++
++    invoke-direct {v7, v6}, Landroid/content/ClipData$Item;-><init>(Landroid/net/Uri;)V
++
++    invoke-virtual {p4, p3, v7}, Landroid/content/ClipData;->addItem(Landroid/content/ContentResolver;Landroid/content/ClipData$Item;)V
++
++    .line 82
++    .end local v6    # "uri":Landroid/net/Uri;
++    :goto_58
++    add-int/lit8 p5, p5, 0x1
++
++    goto :goto_3c
++
++    .line 92
++    .end local p5    # "i":I
++    :cond_5b
++    if-eqz p4, :cond_60
++
++    .line 93
++    invoke-virtual {p0, p4}, Landroid/content/Intent;->setClipData(Landroid/content/ClipData;)V
++
++    .line 95
++    :cond_60
++    return-void
++.end method
++
++.method private static getMediaIdsInSecureModeWithType(Landroid/content/Context;JJI)[J
++    .registers 19
++    .param p0, "context"    # Landroid/content/Context;
++    .param p1, "startTime"    # J
++    .param p3, "endTime"    # J
++    .param p5, "type"    # I
++
++    .line 22
++    invoke-virtual {p0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
++
++    move-result-object v1
++
++    .line 24
++    .local v1, "resolver":Landroid/content/ContentResolver;
++    const-string v0, "external"
++
++    invoke-static {v0}, Landroid/provider/MediaStore$Files;->getContentUri(Ljava/lang/String;)Landroid/net/Uri;
++
++    move-result-object v2
++
++    .line 26
++    .local v2, "queryUri":Landroid/net/Uri;
++    const/4 v0, 0x1
++
++    new-array v3, v0, [Ljava/lang/String;
++
++    const-string v4, "_id"
++
++    const/4 v7, 0x0
++
++    aput-object v4, v3, v7
++
++    .line 27
++    .local v3, "projection":[Ljava/lang/String;
++    const-string v4, "(media_type=?) AND date_modified between ? and ?"
++
++    .line 28
++    .local v4, "selection":Ljava/lang/String;
++    const-string v6, "datetaken DESC"
++
++    .line 30
++    .local v6, "sortOrder":Ljava/lang/String;
++    const/4 v5, 0x3
++
++    new-array v5, v5, [Ljava/lang/String;
++
++    .line 31
++    .local v5, "selectionArgs":[Ljava/lang/String;
++    invoke-static/range {p5 .. p5}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
++
++    move-result-object v8
++
++    aput-object v8, v5, v7
++
++    .line 32
++    const-wide/16 v8, 0x3e8
++
++    div-long v10, p1, v8
++
++    invoke-static {v10, v11}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
++
++    move-result-object v10
++
++    aput-object v10, v5, v0
++
++    .line 33
++    div-long v8, p3, v8
++
++    invoke-static {v8, v9}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
++
++    move-result-object v0
++
++    const/4 v8, 0x2
++
++    aput-object v0, v5, v8
++
++    .line 35
++    invoke-virtual/range {v1 .. v6}, Landroid/content/ContentResolver;->query(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;
++
++    move-result-object v8
++
++    .line 37
++    .local v8, "cursor":Landroid/database/Cursor;
++    new-array v9, v7, [J
++
++    .line 38
++    .local v9, "resultIds":[J
++    if-nez v8, :cond_3b
++
++    .line 39
++    return-object v9
++
++    .line 43
++    :cond_3b
++    :try_start_3b
++    invoke-interface {v8}, Landroid/database/Cursor;->moveToFirst()Z
++
++    move-result v0
++
++    if-eqz v0, :cond_58
++
++    .line 44
++    invoke-interface {v8}, Landroid/database/Cursor;->getCount()I
++
++    move-result v0
++
++    .line 45
++    .local v0, "count":I
++    new-array v10, v0, [J
++
++    move-object v9, v10
++
++    .line 47
++    const/4 v10, 0x0
++
++    .line 49
++    .local v10, "index":I
++    :cond_49
++    invoke-interface {v8, v7}, Landroid/database/Cursor;->getLong(I)J
++
++    move-result-wide v11
++
++    .line 50
++    .local v11, "id":J
++    aput-wide v11, v9, v10
++
++    .line 51
++    nop
++
++    .end local v11    # "id":J
++    add-int/lit8 v10, v10, 0x1
++
++    .line 52
++    invoke-interface {v8}, Landroid/database/Cursor;->moveToNext()Z
++
++    move-result v11
++    :try_end_56
++    .catch Ljava/lang/Exception; {:try_start_3b .. :try_end_56} :catch_5e
++    .catchall {:try_start_3b .. :try_end_56} :catchall_5c
++
++    if-nez v11, :cond_49
++
++    .line 58
++    .end local v0    # "count":I
++    .end local v10    # "index":I
++    :cond_58
++    :goto_58
++    invoke-interface {v8}, Landroid/database/Cursor;->close()V
++
++    .line 59
++    goto :goto_63
++
++    .line 58
++    :catchall_5c
++    move-exception v0
++
++    goto :goto_64
++
++    .line 55
++    :catch_5e
++    move-exception v0
++
++    .line 56
++    .local v0, "e":Ljava/lang/Exception;
++    :try_start_5f
++    invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
++    :try_end_62
++    .catchall {:try_start_5f .. :try_end_62} :catchall_5c
++
++    .end local v0    # "e":Ljava/lang/Exception;
++    goto :goto_58
++
++    .line 61
++    :goto_63
++    return-object v9
++
++    .line 58
++    :goto_64
++    invoke-interface {v8}, Landroid/database/Cursor;->close()V
++
++    .line 59
++    throw v0
++.end method
++
++.method public static viewUriInGallery(Landroid/net/Uri;Landroid/content/Context;ZJJ)V
++    .registers 14
++    .param p0, "thumbnailUri"    # Landroid/net/Uri;
++    .param p1, "context"    # Landroid/content/Context;
++    .param p2, "isSecure"    # Z
++    .param p3, "firstCreateTime"    # J
++    .param p5, "currentTime"    # J
++
++    .line 97
++    new-instance v0, Landroid/content/Intent;
++
++    invoke-direct {v0}, Landroid/content/Intent;-><init>()V
++
++    move-object v1, v0
++
++    .line 100
++    .local v1, "intent":Landroid/content/Intent;
++    if-eqz p2, :cond_e
++
++    .line 101
++    const-string v0, "android.provider.action.REVIEW_SECURE"
++
++    invoke-virtual {v1, v0}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
++
++    goto :goto_13
++
++    .line 103
++    :cond_e
++    const-string v0, "android.provider.action.REVIEW"
++
++    invoke-virtual {v1, v0}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
++
++    .line 106
++    :goto_13
++    const/4 v0, 0x1
++
++    invoke-virtual {v1, v0}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
++
++    .line 108
++    if-eqz p2, :cond_20
++
++    .line 109
++    move-object v2, p1
++
++    move-wide v3, p3
++
++    move-wide v5, p5
++
++    .end local p1    # "context":Landroid/content/Context;
++    .end local p3    # "firstCreateTime":J
++    .end local p5    # "currentTime":J
++    .local v2, "context":Landroid/content/Context;
++    .local v3, "firstCreateTime":J
++    .local v5, "currentTime":J
++    invoke-static/range {v1 .. v6}, Lcn/nubia/camera/utils/CameraUtil;->addClipData(Landroid/content/Intent;Landroid/content/Context;JJ)V
++
++    goto :goto_23
++
++    .line 108
++    .end local v2    # "context":Landroid/content/Context;
++    .end local v3    # "firstCreateTime":J
++    .end local v5    # "currentTime":J
++    .restart local p1    # "context":Landroid/content/Context;
++    .restart local p3    # "firstCreateTime":J
++    .restart local p5    # "currentTime":J
++    :cond_20
++    move-object v2, p1
++
++    move-wide v3, p3
++
++    move-wide v5, p5
++
++    .line 112
++    .end local p1    # "context":Landroid/content/Context;
++    .end local p3    # "firstCreateTime":J
++    .end local p5    # "currentTime":J
++    .restart local v2    # "context":Landroid/content/Context;
++    .restart local v3    # "firstCreateTime":J
++    .restart local v5    # "currentTime":J
++    :goto_23
++    const-string p1, "image/jpeg"
++
++    invoke-virtual {v1, p0, p1}, Landroid/content/Intent;->setDataAndType(Landroid/net/Uri;Ljava/lang/String;)Landroid/content/Intent;
++
++    .line 115
++    :try_start_28
++    invoke-virtual {v2, v1}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
++    :try_end_2b
++    .catch Landroid/content/ActivityNotFoundException; {:try_start_28 .. :try_end_2b} :catch_2c
++
++    .line 118
++    goto :goto_2d
++
++    .line 116
++    :catch_2c
++    move-exception v0
++
++    .line 119
++    :goto_2d
++    return-void
++.end method
+-- 
+2.49.0
+
