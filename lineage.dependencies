@@ -1,6 +1,6 @@
 [
   {
-    "repository": "android_kernel_nubia_sm8650",
-    "target_path": "kernel/nubia/sm8650"
+    "repository": "android_device_nubia_sm8650-common",
+    "target_path": "device/nubia/sm8650-common"
   }
 ]
