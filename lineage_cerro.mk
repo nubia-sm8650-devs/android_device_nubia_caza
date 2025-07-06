@@ -8,7 +8,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from device.
-$(call inherit-product, device/nubia/caza/device.mk)
+$(call inherit-product, device/nubia/cerro/device.mk)
 
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
@@ -18,10 +18,10 @@ TARGET_SCREEN_HEIGHT := 2480
 TARGET_SCREEN_WIDTH := 1116
 
 PRODUCT_BRAND := nubia
-PRODUCT_DEVICE := caza
+PRODUCT_DEVICE := cerro
 PRODUCT_MANUFACTURER := nubia
 PRODUCT_MODEL := NX721J
-PRODUCT_NAME := lineage_caza
+PRODUCT_NAME := lineage_cerro
 PRODUCT_SYSTEM_DEVICE := PQ83A01
 PRODUCT_SYSTEM_NAME := PQ83A01-UN
 

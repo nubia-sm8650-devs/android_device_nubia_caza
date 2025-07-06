@@ -36,7 +36,7 @@ PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script
 
-DEVICE_PATH := device/nubia/caza
+DEVICE_PATH := device/nubia/cerro
 
 # API level
 BOARD_SHIPPING_API_LEVEL := 34
@@ -385,4 +385,4 @@ PRODUCT_PACKAGES += \
     firmware_WCNSS_qcom_cfg.ini_symlink
 
 # Inherit from proprietary targets
-$(call inherit-product, vendor/nubia/caza/caza-vendor.mk)
+$(call inherit-product, vendor/nubia/cerro/cerro-vendor.mk)
