@@ -29,9 +29,40 @@ vendor/lib64/camera/com.zte.tuned.zte_imx906_cerro.bin
 vendor/lib64/camera/com.zte.tuned.zte_ov12d2q_cerro.bin
 vendor/lib64/camera/com.zte.tuned.zte_ov50e40_cerro.bin
 vendor/lib64/camera/com.zte.tuned.zte_ov64b40_cerro.bin
+vendor/lib64/com.qti.camx.chiiqutils.so
+vendor/lib64/com.qti.chiusecaseselector.so
+vendor/lib64/com.qti.feature2.afbrckt.so
+vendor/lib64/com.qti.feature2.anchorsync.so
+vendor/lib64/com.qti.feature2.demux.so
+vendor/lib64/com.qti.feature2.derivedoffline.so
 vendor/lib64/com.qti.feature2.fusion.so
+vendor/lib64/com.qti.feature2.generic.so
+vendor/lib64/com.qti.feature2.gs.sm8650.so
+vendor/lib64/com.qti.feature2.hdr.so
+vendor/lib64/com.qti.feature2.mcreprocrt.so
+vendor/lib64/com.qti.feature2.memcpy.so
+vendor/lib64/com.qti.feature2.metadataserializer.so
+vendor/lib64/com.qti.feature2.mfsr.so
+vendor/lib64/com.qti.feature2.ml.so
+vendor/lib64/com.qti.feature2.mux.so
+vendor/lib64/com.qti.feature2.qcfa.so
+vendor/lib64/com.qti.feature2.rawhdr.so
+vendor/lib64/com.qti.feature2.realtimeserializer.so
+vendor/lib64/com.qti.feature2.rt.so
+vendor/lib64/com.qti.feature2.rtmcx.so
+vendor/lib64/com.qti.feature2.serializer.so
+vendor/lib64/com.qti.feature2.statsregeneration.so
+vendor/lib64/com.qti.feature2.stub.so
+vendor/lib64/com.qti.feature2.supres.so
+vendor/lib64/com.qti.feature2.swmf.so
+vendor/lib64/com.qualcomm.mcx.distortionmapper.so
+vendor/lib64/com.qualcomm.mcx.linearmapper.so
+vendor/lib64/com.qualcomm.mcx.nonlinearmapper.so
+vendor/lib64/com.qualcomm.mcx.policy.mfl.so
+vendor/lib64/com.qualcomm.qti.mcx.usecase.extension.so
 vendor/lib64/hw/camera.qcom.sm8650.so
 vendor/lib64/hw/camera.qcom.so
+vendor/lib64/hw/com.qti.chi.offline.so
 vendor/lib64/hw/com.qti.chi.override.so
 vendor/lib64/libarcsoft_hp_detection.so
 vendor/lib64/libarcsoft_picselfie.so
@@ -39,8 +70,10 @@ vendor/lib64/libarcsoft_qnnhtp.so
 vendor/lib64/libarcsoft_scbokeh_image.so
 vendor/lib64/libarcsoft_scbokeh_video.so
 vendor/lib64/libarcsoft_superportrait.so
+vendor/lib64/libcamerapostproc.so
 vendor/lib64/libcamxarcskinbeautiful.so
 vendor/lib64/libcamxdepthbokeharc.so
+vendor/lib64/libcamxncsdatafactory.so
 vendor/lib64/libcamxremovefringer.so
 vendor/lib64/libcamxselfiebokeharc.so
 vendor/lib64/libcamxskytone.so
@@ -59,6 +92,10 @@ vendor/lib64/libsr_x4_272_272_12.so
 vendor/lib64/libtflite_model_depurple_544_544.so
 vendor/lib64/libVNSInterface.so
 vendor/lib64/libyuv_sr.so
+
+# Camera components
+vendor/lib64/camera/components/com.zte.node.mcxrealtimepostprocess.so
+vendor/lib64/camera/components/libcamxevainterface.so
 
 # Camera app
 system/etc/pictureclassifier/MultiScenePictureClassifier.tflite
